@@ -1,22 +1,22 @@
+require("dotenv").config();
+const carsRoutes = require("./routes/carRoutes");
+const authRoutes = require("./routes/authRoutes");
 const express = require("express");
 const cors = require("cors");
-const mongoose = require("mongoose");
-require("dotenv").config();
-
+const connectDB =require("./config/db");
 const app = express();
-
+connectDB();
 app.use(cors());
 app.use(express.json());
-
+app.use("/api/auth", authRoutes);
+app.use("/api/cars", carsRoutes);
+app.use("/uploads", express.static("uploads"));
 app.get("/", (req, res) => {
-    res.send("Car Rental API Running...");
+  res.json({ success: true,
+    message:"Car Rental Service API Running",
+  });
 });
-
-mongoose.connect(process.env.MONGO_URI)
-.then(() => console.log("MongoDB Connected"))
-.catch((err) => console.log(err));
-
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
+const PORT =process.env.PORT || 5000;
+app.listen(5000, () => {
+  console.log(`Server running on port 5000`);
 });
