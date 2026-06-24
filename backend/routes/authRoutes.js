@@ -5,7 +5,7 @@ const {
     loginUser,
 } = require("../controllers/authController");
 const protect = require("../middleware/authMiddleware");
-const adminOnly = require("../middleware/authMiddleware");
+const adminOnly = require("../middleware/adminMiddleware");
 router.post("/register", registerUser);
 router.post("/login", loginUser);
 router.get(
