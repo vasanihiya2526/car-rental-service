@@ -1,8 +1,8 @@
 const express=require("express");
 const router=express.Router();
 const upload=require("../middleware/uploadMiddleware");
-const auth=require("../middleware/authMiddleware");
-const admin=require("../middleware/adminMiddleware");
+const {auth}=require("../middleware/authMiddleware");
+const {admin}=require("../middleware/adminMiddleware");
 const {addCar,getCars,getSingleCar,updateCar,deleteCar}=require("../controllers/carController");
 
 // ADMIN

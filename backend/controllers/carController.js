@@ -2,7 +2,9 @@ const Car = require("../models/Car");
 exports.getCars = async (req, res) => {
     try {
         const cars = await Car.find();
-        res.status(200).json(cars);
+        res.status(200).json({
+            success:true,
+            cars});
     } catch (error) {
         res.status(500).json({
             message: error.message
@@ -24,37 +26,54 @@ exports.getSingleCar = async (req, res) => {
         });
     }
 };
+
 exports.addCar = async (req, res) => {
-    try {
-        let imagePaths = [];
-        // check uploaded images
-        if(req.files){
-            req.files.forEach((file)=>{
-                imagePaths.push(
-                    "/" + file.path.replaceAll("\\","/")
-                );
-            });
-        }
-        const car = await Car.create({
-            name:req.body.name,
-            brand:req.body.brand,
-            category:req.body.category,
-            fuelType:req.body.fuelType,
-            transmission:req.body.transmission,
-            pricePerDay:req.body.pricePerDay,
-            seats:req.body.seats,
-            description:req.body.description,
-            image:req.files.imagePaths
-        });
-        res.status(201).json({
-            message:"Car added successfully",
-            car
-        });
-    } catch(error){
-        res.status(500).json({
-            message:error.message
-        });
-    }
+  try {
+    const {
+      brand,
+      carName,
+      model,
+      category,
+      year,
+      pricePerDay,
+      fuelType,
+      transmission,
+      seats
+    } = req.body;
+
+    // uploaded images
+    const images =
+      req.files?.map((file) => file.filename) || [];
+
+    const car = new Car({
+      brand,
+      carName,
+      model,
+      category,
+      year,
+      pricePerDay,
+      fuelType,
+      transmission,
+      seats,
+      image: images
+    });
+
+    await car.save();
+
+    res.status(201).json({
+      success: true,
+      message: "Car added successfully",
+      data: car
+    });
+
+  } catch (error) {
+    console.log(error);
+
+    res.status(500).json({
+      success: false,
+      message: error.message
+    });
+  }
 };
 exports.updateCar = async(req,res)=>{
     try{

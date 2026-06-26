@@ -1,35 +1,31 @@
-const jwt = require("jsonwebtoken");
-const protect = (req, res, next) => {
-  let token;
-  if (
-    req.headers.authorization &&
-    req.headers.authorization.startsWith("Bearer")
-  ) {
-    token = req.headers.authorization.split(" ")[1];
-    try {
-      const decoded = jwt.verify(token, process.env.JWT_SECRET);
-      req.user = decoded;
-      next();
-    } catch (error) {
-      return res.status(401).json({
-        message: "Invalid Token",
-      });
-    }
-  }
-  if (!token) {
-    return res.status(401).json({
-      message: "No Token Found",
-    });
-  }
-};
-module.exports = protect;
+const jwt=require("jsonwebtoken");
+exports.auth=(req,res,next)=>{
+try{
+const authHeader=
+req.header("Authorization");
+if(!authHeader){
+return res.status(401).json({
+message:"Token Missing"
+});
+}
 
-exports.adminOnly = (req, res, next) => {
-    if(req.user.role !== "admin"){
-        return res.status(403).json({
-            success:false,
-            message:"Access denied"
-        });
-    }
-    next();
+// Remove Bearer
+const token=
+authHeader.startsWith("Bearer ")
+? authHeader.split(" ")[1]
+: authHeader;
+const decoded=
+jwt.verify(
+token,
+process.env.JWT_SECRET
+);
+req.user=decoded;
+next();
+}
+catch(error){
+return res.status(401).json({
+message:"Invalid Token",
+error:error.message
+});
+}
 };
