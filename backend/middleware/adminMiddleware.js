@@ -1,9 +1,16 @@
-const admin = (req,res,next)=>{
-if(req.user.role !== "admin"){
+exports.admin=(
+req,
+res,
+next
+)=>{
+if(
+req.user.role
+!=="admin"
+){
 return res.status(403).json({
-message:"Admin access required"
+message:
+"Admin Access Required"
 });
 }
 next();
 };
-module.exports = admin;
