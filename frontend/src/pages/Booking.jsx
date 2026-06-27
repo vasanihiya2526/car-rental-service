@@ -1,6 +1,3 @@
-import Navbar from "../components/Navbar";
-import Footer from "../components/Footer";
-
 import GuestInformation from "../components/GuestInformation";
 import ScheduleForm from "../components/ScheduleForm";
 import PaymentForm from "../components/PaymentForm";
@@ -9,7 +6,6 @@ import BookingSummary from "../components/BookingSummary";
 const Booking=()=>{
 return(
 <div>
-    <Navbar/>
     <div className="
     container
     mx-auto
@@ -47,7 +43,6 @@ return(
             </div>
         </div>
     </div>
-    <Footer/>
 </div>
 )}
 export default Booking;
