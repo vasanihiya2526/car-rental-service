@@ -1,12 +1,13 @@
 import {Routes,Route} from "react-router-dom";
+
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 
 import Home from "./pages/Home";
 import Cars from "./pages/Cars";
 import CarDetails from "./pages/CarDetails";
-import Login from "./pages/Login";
 import Booking from "./pages/Booking";
+import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
 
@@ -39,6 +40,5 @@ element={<Dashboard/>}
 </Routes>
 <Footer/>
 </>
-)
-}
+)}
 export default App;
