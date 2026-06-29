@@ -1,4 +1,12 @@
-const CarCard = ({image,name,price}) => {
+import { Link } from "react-router-dom";
+
+const CarCard = ({car,image,name,price}) => {
+const carData = car || {
+image,
+name,
+price,
+id:1
+};
 return (
 <div className="
 bg-white
@@ -9,8 +17,8 @@ hover:shadow-xl
 transition
 ">
     <img
-    src={image}
-    alt={name}
+    src={carData.image}
+    alt={carData.name}
     className="
     w-full
     h-48
@@ -22,7 +30,7 @@ transition
         font-bold
         text-lg
         ">
-        {name}
+        {carData.name}
         </h2>
         <div className="
         flex
@@ -40,9 +48,10 @@ transition
             text-green-500
             font-bold
             ">
-            ${price}
+            ${carData.price}
             </span>
         </div>
+        <Link to={`/car/${carData.id}`}>
         <button
         className="
         mt-5
@@ -58,8 +67,8 @@ transition
         ">
         Rent Now
         </button>
+        </Link>
     </div>
 </div>
-)
-}
+)}
 export default CarCard;

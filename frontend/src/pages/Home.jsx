@@ -1,7 +1,7 @@
-import Navbar from "../components/Navbar";
 import CarCard from "../components/CarCard";
 import TestimonialCard from "../components/TestimonialCard";
-import Footer from "../components/Footer";
+import {Link} from "react-router-dom";
+
 import hero from "../assets/images/hero-car.jpg";
 import toyota from "../assets/images/toyota.jpg";
 import mahindra_XUV70 from "../assets/images/mahindra_XUV70.jpg";
@@ -10,7 +10,6 @@ import hyundai_creta from "../assets/images/hyundai_creta.jpg";
 const Home = () => {
 return(
 <div>
-<Navbar/>
 
 {/* HERO SECTION */}
 <section className="
@@ -240,19 +239,20 @@ text-green-500
  Ultimate Drive?
 </span>
 </h1>
-<button
-className="
-bg-green-500
-mt-6
-px-6
-py-3
-rounded-lg
-hover:bg-green-600
-">
-Book Your Car Now
-</button>
+<Link to="/cars">
+    <button
+    className="
+    bg-green-500
+    mt-6
+    px-6
+    py-3
+    rounded-lg
+    hover:bg-green-600
+    ">
+    Book Your Car Now
+    </button>
+</Link>
 </section>
-<Footer/>
 </div>
 )
 }

@@ -1,5 +1,3 @@
-import Navbar from "../components/Navbar";
-import Footer from "../components/Footer";
 import FilterSidebar from "../components/FilterSidebar";
 import CarCard from "../components/CarCard";
 
@@ -13,48 +11,50 @@ import audi from "../assets/images/audi.jpg";
 const Cars = () => {
 const cars=[
 {
+id:1,
 image:toyota,
 name:"Mercedes AMG GT",
 price:"175,900"
 },
 {
+id:2,
 image:hyundai_creta,
 name:"Tesla Model S Plaid",
 price:"109,990"
 },
 {
+id:3,
 image:honda_city,
 name:"Porsche 911 GT3",
 price:"223,800"
 },
 {
+id:4,
 image:maruti_suzuki,
 name:"Maruti Suzuki X7 M60i",
 price:"108,700"
 },
 {
+id:5,
 image:mahindra_XUV70,
 name:"Mahindra XUV70",
 price:"147,100"
 },
 {
+id:6,
 image:audi,
 name:"Lucid Air Sapphire",
 price:"249,000"
 }
 ];
-
 return(
 <div>
-<Navbar/>
 <section className="
 container
 bg-gray-50
 pt-24
 pb-10
 ">
-
-{/* Breadcrumb */}
 <p className="
 text-sm
 text-gray-500
@@ -68,8 +68,6 @@ ml-1
 All Vehicles
 </span>
 </p>
-
-{/* Heading + Sort */}
 <div className="
 flex
 flex-col
@@ -94,16 +92,10 @@ border
 px-4
 py-3
 rounded-lg
-w-full
-sm:w-auto
-hover:bg-gray-100
-"
->
+">
 Sort By: Newest Arrival
 </button>
 </div>
-
-{/* Main Layout */}
 <div className="
 grid
 grid-cols-1
@@ -111,19 +103,12 @@ lg:grid-cols-4
 gap-8
 mt-10
 ">
-
-{/* Filter */}
-<div className="
-lg:col-span-1
-">
+<div>
 <FilterSidebar/>
 </div>
-
-{/* Cars */}
 <div className="
 lg:col-span-3
 ">
-
 <div className="
 grid
 grid-cols-1
@@ -131,76 +116,18 @@ sm:grid-cols-2
 xl:grid-cols-3
 gap-6
 ">
-    {
-    cars.map((car,index)=>(
-    <CarCard
-    key={index}
-    image={car.image}
-    name={car.name}
-    price={car.price}
-    />
-    ))
-    }
-</div>
-
-<div className="
-flex
-justify-center
-flex-wrap
-gap-3
-mt-10
-">
-
-    <button
-        className="
-        border
-        px-4
-        py-2
-        rounded
-        hover:bg-gray-100
-        "
-        >
-        ←
-    </button>
-
-    <button
-        className="
-        bg-green-600
-        text-white
-        px-4
-        py-2
-        rounded
-        "
-        >
-        1
-    </button>
-
-    <button
-        className="
-        border
-        px-4
-        py-2
-        rounded
-        "
-        >
-        2
-    </button>
-
-    <button
-        className="
-        border
-        px-4
-        py-2
-        rounded"
-        >
-        3
-    </button>
+{
+cars.map((car)=>(
+<CarCard
+key={car.id}
+car={car}
+/>
+))
+}
 </div>
 </div>
 </div>
 </section>
-<Footer/>
 </div>
-)
-}
+)}
 export default Cars;

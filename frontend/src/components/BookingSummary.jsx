@@ -69,6 +69,7 @@ top-5
             </b>
         </div>
         <button
+        onClick={()=>alert("Booking Confirmed")}
         className="
         bg-blue-900
         text-white

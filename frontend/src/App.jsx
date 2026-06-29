@@ -1,24 +1,24 @@
 import {Routes,Route} from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
+
 import Home from "./pages/Home";
 import Cars from "./pages/Cars";
 import CarDetails from "./pages/CarDetails";
 import Login from "./pages/Login";
+import Booking from "./pages/Booking";
 import Register from "./pages/Register";
-import Dashboard from "./pages/Dashboard";
-import ProtectedRoute from "./components/ProtectedRoute";
+import Booking from "./pages/UserDashboard";
+import AdminDashboard from "./pages/AdminDashboard";
+
 function App(){
 return(
 <>
 <Navbar/>
 <Routes>
+<Route path="/" element={<Home/>}/>
 <Route 
-path="/"
-element={<Home/>}
-/>
-<Route
-path="/cars"
+path="/cars" 
 element={<Cars/>}
 />
 <Route
@@ -34,12 +34,12 @@ path="/register"
 element={<Register/>}
 />
 <Route
-path="/dashboard"
-element={
-<ProtectedRoute>
-<Dashboard/>
-</ProtectedRoute>
-}
+path="/user-dashboard"
+element={<UserDashboard/>}
+/>
+<Route
+path="/admin-dashboard"
+element={<AdminDashboard/>}
 />
 </Routes>
 <Footer/>
