@@ -1,11 +1,9 @@
 import { useParams } from "react-router-dom";
 
-
 import CarGallery from "../components/CarGallery";
 import BookingCard from "../components/BookingCard";
 import CarFeature from "../components/CarFeature";
 import SimilarCar from "../components/SimilarCar";
-
 
 import honda_city from "../assets/images/honda_city.jpg";
 import toyota from "../assets/images/toyota.jpg";
