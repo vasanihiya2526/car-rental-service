@@ -8,8 +8,7 @@ import CarDetails from "./pages/CarDetails";
 import Login from "./pages/Login";
 import Booking from "./pages/Booking";
 import Register from "./pages/Register";
-import Booking from "./pages/UserDashboard";
-import AdminDashboard from "./pages/AdminDashboard";
+import Dashboard from "./pages/Dashboard";
 
 function App(){
 return(
@@ -34,12 +33,8 @@ path="/register"
 element={<Register/>}
 />
 <Route
-path="/user-dashboard"
-element={<UserDashboard/>}
-/>
-<Route
-path="/admin-dashboard"
-element={<AdminDashboard/>}
+path="/dashboard"
+element={<Dashboard/>}
 />
 </Routes>
 <Footer/>
