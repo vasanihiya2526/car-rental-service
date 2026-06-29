@@ -6,7 +6,7 @@ const {admin}=require("../middleware/adminMiddleware");
 const {addCar,getCars,getSingleCar,updateCar,deleteCar}=require("../controllers/carController");
 
 // ADMIN
-router.post("/add",auth,admin,upload.array("image",5),addCar);
+router.post("/add",auth,admin,upload.array("image",1),addCar);
 router.put("/update/:id",auth,admin,updateCar);
 router.delete("/delete/:id",auth,admin,deleteCar);
 
