@@ -1,82 +1,119 @@
+import {
+useEffect,
+useState
+}
+from "react";
+
+import API from "../services/api";
+
 import Sidebar from "../components/dashboard/Sidebar";
+
 import DashboardNavbar from "../components/dashboard/DashboardNavbar";
 
-import UserDashboardContent 
+import UserDashboardContent
 from "../components/dashboard/UserDashboardContent";
 
-import AdminDashboardContent 
+import AdminDashboardContent
 from "../components/dashboard/AdminDashboardContent";
 
+const Dashboard=()=>{
 
-const Dashboard = ()=>{
-
-
-const user = 
+const user=
 JSON.parse(
 localStorage.getItem("user")
 );
 
+const role=
+user?.role;
 
+const [data,setData]=
+useState([]);
 
-const userRole = user?.role || "user";
+useEffect(()=>{
 
+loadData();
 
+},[]);
+
+const loadData=
+async()=>{
+
+try{
+
+if(role==="admin"){
+
+const res=
+await API.get(
+"/admin/bookings"
+);
+
+setData(res.data);
+
+}
+
+else{
+
+const res=
+await API.get(
+"/bookings/user"
+);
+
+setData(res.data);
+
+}
+
+}
+catch(err){
+
+console.log(err);
+
+}
+
+};
 
 return(
 
 <div className="flex">
 
-
-<Sidebar 
-admin={userRole==="admin"}
+<Sidebar
+admin={
+role==="admin"
+}
 />
 
-
-
 <div
-
 className="
 flex-1
 bg-gray-50
-p-5
-md:p-10
+p-10
 "
-
-
 >
 
-
-<DashboardNavbar />
-
-
+<DashboardNavbar/>
 
 {
-
-userRole==="admin"
+role==="admin"
 
 ?
 
-<AdminDashboardContent/>
+<AdminDashboardContent
+data={data}
+/>
 
 :
 
-<UserDashboardContent/>
+<UserDashboardContent
+data={data}
+/>
 
 }
 
-
-
 </div>
 
-
-
 </div>
-
 
 )
 
-
 }
-
 
 export default Dashboard;

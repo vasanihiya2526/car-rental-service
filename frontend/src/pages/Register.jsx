@@ -1,323 +1,188 @@
 import {useState} from "react";
 import {useNavigate} from "react-router-dom";
 
+import API from "../services/api";
+
 import AuthImage from "../components/auth/AuthImage";
 import SocialLogin from "../components/auth/SocialLogin";
 
+const Register=()=>{
 
-const Register = () => {
+const navigate=
+useNavigate();
 
+const [loading,setLoading]=
+useState(false);
 
-const navigate = useNavigate();
-
-
-const [user,setUser]=useState({
-
+const [user,setUser]=
+useState({
 name:"",
 email:"",
 phone:"",
 password:"",
 role:"user"
-
 });
-
-
 
 const handleChange=(e)=>{
 
 setUser({
-
 ...user,
+[e.target.name]:
+e.target.value
+});
 
-[e.target.name]:e.target.value
+};
 
-})
-
-}
-
-
-
-const handleRegister=(e)=>{
+const handleRegister=
+async(e)=>{
 
 e.preventDefault();
 
+try{
 
-localStorage.setItem(
-"user",
-JSON.stringify(user)
+setLoading(true);
+
+const res=
+await API.post(
+"/auth/register",
+user
 );
 
+alert(
+res.data.message
+||
+"Registered Successfully"
+);
 
 navigate("/login");
 
+}
+catch(err){
+
+alert(
+err.response?.data?.message
+||
+"Register Failed"
+);
+
+}
+finally{
+
+setLoading(false);
 
 }
 
+};
 
-
-return (
+return(
 
 <div className="min-h-screen flex">
 
+<AuthImage/>
 
-<AuthImage />
-
-
-
-<div className="
+<div
+className="
 w-full
 lg:w-1/2
 flex
-items-center
 justify-center
-px-6
-py-10
-">
-
+items-center
+p-6
+"
+>
 
 <div className="max-w-md w-full">
 
-
-<h1 className="
-text-3xl
-font-bold
-text-gray-900
-">
+<h1 className="text-3xl font-bold">
 
 Create Account
 
 </h1>
 
-
-<p className="text-gray-500 mt-3">
-
-Join DriveEase and start your premium journey.
-
-</p>
-
-
-
 <form
-
 onSubmit={handleRegister}
-
-className="mt-8 space-y-6"
-
+className="space-y-5 mt-8"
 >
 
-
-
-<div>
-
-<label className="text-sm font-semibold">
-
-FULL NAME
-
-</label>
-
 <input
-
 name="name"
-
-type="text"
-
-placeholder="Johnathan Doe"
-
+placeholder="Name"
 onChange={handleChange}
-
-className="w-full border-b py-3 outline-none"
-
+className="w-full border-b py-3"
 />
 
-</div>
-
-
-
-
-
-<div>
-
-<label className="text-sm font-semibold">
-
-EMAIL ADDRESS
-
-</label>
-
-
 <input
-
 name="email"
-
 type="email"
-
-placeholder="john@driveease.com"
-
+placeholder="Email"
 onChange={handleChange}
-
-className="w-full border-b py-3 outline-none"
-
+className="w-full border-b py-3"
 />
 
-
-</div>
-
-
-
-
-
-<div>
-
-
-<label className="text-sm font-semibold">
-
-PHONE NUMBER
-
-</label>
-
-
 <input
-
 name="phone"
-
-type="text"
-
-placeholder="+91 9999999999"
-
+placeholder="Phone"
 onChange={handleChange}
-
-className="w-full border-b py-3 outline-none"
-
+className="w-full border-b py-3"
 />
-
-
-</div>
-
-
-
-
-
-
-<div>
-
-
-<label className="text-sm font-semibold">
-
-PASSWORD
-
-</label>
-
 
 <input
-
 name="password"
-
 type="password"
-
-placeholder="********"
-
+placeholder="Password"
 onChange={handleChange}
-
-className="w-full border-b py-3 outline-none"
-
+className="w-full border-b py-3"
 />
-
-
-</div>
-
-
-
-
-
-
-<div>
-
-
-<label className="text-sm font-semibold">
-
-ACCOUNT TYPE
-
-</label>
-
-
 
 <select
-
 name="role"
-
 onChange={handleChange}
-
 className="w-full border-b py-3"
-
-
 >
 
-
 <option value="user">
-
 Customer
-
 </option>
-
 
 <option value="admin">
-
 Admin
-
 </option>
-
 
 </select>
 
-
-
-</div>
-
-
-
-
 <button
-
 type="submit"
-
 className="
 w-full
 bg-green-500
-hover:bg-green-600
 text-white
-py-4
 rounded-xl
-font-bold
+py-4
 "
-
 >
 
-CREATE ACCOUNT
+{
+loading
+?
+"Creating..."
+:
+"CREATE ACCOUNT"
+}
 
 </button>
 
-
-
-
 </form>
 
-
-
-
-<SocialLogin />
-
-
+<SocialLogin/>
 
 </div>
 
-
 </div>
-
 
 </div>
 
 )
 
 }
-
 
 export default Register;

@@ -1,232 +1,242 @@
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
+import API from "../services/api";
+
 import CarGallery from "../components/CarGallery";
-import BookingCard from "../components/BookingCard";
+import BookingCard from "../components/BookingSummary";
 import CarFeature from "../components/CarFeature";
 import SimilarCar from "../components/SimilarCar";
 
-import honda_city from "../assets/images/honda_city.jpg";
-import toyota from "../assets/images/toyota.jpg";
-import maruti_suzuki from "../assets/images/maruti_suzuki.jpg";
-
-
-
 const CarDetails = () => {
 
+const { id } = useParams();
 
-const {id}=useParams();
+const [car, setCar] =
+useState(null);
 
+const [loading, setLoading] =
+useState(true);
 
+useEffect(() => {
+
+getCar();
+
+}, []);
+
+const getCar = async () => {
+
+try {
+
+const res =
+await API.get(
+`/cars/${id}`
+);
+
+setCar(
+res.data
+);
+
+}
+catch(err){
+
+console.log(err);
+
+}
+finally{
+
+setLoading(false);
+
+}
+
+};
+
+if(loading){
+
+return(
+<div>
+Loading...
+</div>
+);
+
+}
+
+if(!car){
+
+return(
+<div>
+Car Not Found
+</div>
+);
+
+}
 
 return(
 
-
 <div className="bg-gray-50">
 
-
-<div className="
+<div
+className="
 max-w-7xl
 mx-auto
 p-5
 md:p-10
-">
-
+"
+>
 
 <p className="text-sm mb-5">
 
-Fleet › Premium › Car {id}
+Fleet ›
+
+<span className="ml-1">
+
+{car.name}
+
+</span>
 
 </p>
 
-
-
-<div className="
+<div
+className="
 grid
 lg:grid-cols-3
 gap-8
-">
-
+"
+>
 
 <div className="lg:col-span-2">
 
+<CarGallery image={car.image}/>
 
-<CarGallery/>
-
-
-
-
-<div className="
+<div
+className="
 grid
 grid-cols-2
 md:grid-cols-4
 gap-4
 mt-5
-">
-
+"
+>
 
 <CarFeature
 icon="⛽"
 title="Fuel"
-value="Hybrid"
+value={
+car.fuel
+||
+"N/A"
+}
 />
-
 
 <CarFeature
 icon="💺"
 title="Seats"
-value="2+2"
+value={
+car.seats
+||
+"N/A"
+}
 />
-
 
 <CarFeature
 icon="⚙"
 title="Transmission"
-value="Automatic"
+value={
+car.transmission
+||
+"N/A"
+}
 />
-
 
 <CarFeature
 icon="◉"
 title="Mileage"
-value="12k"
+value={
+car.mileage
+||
+"N/A"
+}
 />
-
-
 
 </div>
 
-
-
-
-<div className="
+<div
+className="
 bg-white
 border
 rounded-xl
 p-8
 mt-6
-">
-
+"
+>
 
 <h2 className="text-2xl font-bold">
 
-Engineering Excellence
+{car.name}
 
 </h2>
 
-
-
-<p className="
+<p
+className="
 text-gray-600
 mt-4
 leading-7
-">
+"
+>
 
-Experience premium driving with DriveEase vehicles.
-
-Book your favourite car with easy rental options.
+{
+car.description
+||
+"No description available"
+}
 
 </p>
 
-
-
 </div>
 
-
-
 </div>
-
-
 
 <div>
 
-
-<BookingCard/>
-
-
-</div>
-
-
+<BookingCard
+car={car}
+/>
 
 </div>
 
+</div>
 
-
-
-
-<h2 className="
+<h2
+className="
 text-3xl
 font-bold
 mt-20
-">
+"
+>
 
-Similar High-Performance Vehicles
+Similar Vehicles
 
 </h2>
 
-
-
-
-<div className="
+<div
+className="
 grid
 md:grid-cols-3
 gap-6
 mt-8
-">
+"
+>
 
-
-
-<SimilarCar
-
-image={honda_city}
-
-name="Ferrari F8 Tributo"
-
-price="$1400/day"
-
-/>
-
-
-
-<SimilarCar
-
-image={toyota}
-
-name="Lamborghini Huracan"
-
-price="$1150/day"
-
-/>
-
-
-
-<SimilarCar
-
-image={maruti_suzuki}
-
-name="Aston Martin DBS"
-
-price="$1300/day"
-
-/>
-
-
-
+<SimilarCar/>
 
 </div>
 
-
-
+</div>
 
 </div>
 
+);
 
-</div>
-
-
-)
-
-
-}
-
+};
 
 export default CarDetails;

@@ -6,10 +6,11 @@ const user =
 JSON.parse(
 localStorage.getItem("user")
 );
-const logout = ()=>{
+const logout=()=>{
 localStorage.removeItem("user");
+localStorage.removeItem("token");
 navigate("/login");
-}
+};
 return(
 <div
 className="
