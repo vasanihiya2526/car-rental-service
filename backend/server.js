@@ -16,6 +16,10 @@ app.use(express.json());
 
 // Routes AFTER middleware
 app.use(
+"/uploads",
+express.static("uploads")
+);
+app.use(
 "/api/auth",
 authRoutes
 );
