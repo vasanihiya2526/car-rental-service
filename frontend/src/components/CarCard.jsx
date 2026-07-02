@@ -1,118 +1,102 @@
 import { Link } from "react-router-dom";
 
 const CarCard = ({ car }) => {
+  if (!car) return null;
 
-if (!car) {
-return null;
-}
+  return (
+    <div
+      className="
+      bg-white
+      rounded-3xl
+      overflow-hidden
+      border
+      border-gray-200
+      shadow-sm
+      hover:shadow-2xl
+      hover:-translate-y-2
+      transition-all
+      duration-300
+      "
+    >
+      {/* Image */}
+      <div className="overflow-hidden">
+        <img
+          src={
+            car.image?.length > 0
+              ? `http://localhost:5000/uploads/${car.image[0]}`
+              : "https://placehold.co/600x400"
+          }
+          alt={car.carName}
+          className="
+          w-full
+          h-56
+          object-cover
+          hover:scale-105
+          transition-transform
+          duration-500
+          "
+        />
+      </div>
 
-return (
+      {/* Content */}
+      <div className="p-6">
 
-<div
-className="
-bg-white
-rounded-xl
-overflow-hidden
-shadow-md
-hover:shadow-xl
-transition
-"
->
+        {/* Car Name */}
+        <h2 className="text-xl font-bold text-gray-900">
+          {car.carName}
+        </h2>
 
-<img
-src={
-car.image ||
-"https://placehold.co/600x400"
-}
-alt={
-car.name ||
-"Car"
-}
-className="
-w-full
-h-48
-sm:h-52
-object-cover
-"
-/>
+        <p className="text-gray-500 text-sm mt-1">
+          Luxury SUV
+        </p>
 
-<div className="p-5">
+        {/* Details */}
+        <div className="flex justify-between mt-5 text-sm text-gray-500">
+          <span>👥 4 Seats</span>
+        </div>
 
-<h2
-className="
-font-bold
-text-lg
-"
->
+        {/* Divider */}
+        <div className="border-t border-gray-200 my-6"></div>
 
-{car.name}
+        {/* Bottom */}
+        <div className="flex justify-between items-center">
 
-</h2>
+          <div>
+            <p className="text-xs text-gray-400 uppercase">
+              Price
+            </p>
 
-<div
-className="
-flex
-justify-between
-items-center
-mt-3
-"
->
+            <h3 className="text-2xl font-bold text-green-600">
+              ₹{car.pricePerDay}
+              <span className="text-sm text-gray-500 font-normal">
+                /day
+              </span>
+            </h3>
+          </div>
 
-<span
-className="
-text-gray-500
-text-sm
-"
->
+          <Link to={`/cars/${car._id}`}>
+            <button
+              className="
+              bg-green-500
+              hover:bg-green-600
+              text-white
+              px-6
+              py-3
+              rounded-xl
+              font-semibold
+              transition-all
+              duration-300
+              "
+            >
+              Rent Now
+            </button>
+          </Link>
 
-Luxury
+        </div>
 
-</span>
-
-<span
-className="
-text-green-500
-font-bold
-"
->
-
-₹ {car.price}
-
-</span>
-
-</div>
-
-<Link
-to={`/cars/${car._id}`}
->
-
-<button
-className="
-mt-5
-border
-border-green-500
-text-green-600
-w-full
-py-2
-rounded-lg
-hover:bg-green-500
-hover:text-white
-transition
-"
->
-
-Rent Now
-
-</button>
-
-</Link>
-
-</div>
-
-</div>
-
-);
-
+      </div>
+    </div>
+  );
 };
 
 export default CarCard;

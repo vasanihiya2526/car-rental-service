@@ -2,241 +2,266 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
 import API from "../services/api";
-
-import CarGallery from "../components/CarGallery";
-import BookingCard from "../components/BookingSummary";
-import CarFeature from "../components/CarFeature";
+import BookingSummary from "../components/BookingSummary";
 import SimilarCar from "../components/SimilarCar";
 
 const CarDetails = () => {
+  const { id } = useParams();
 
-const { id } = useParams();
+  const [car, setCar] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-const [car, setCar] =
-useState(null);
+  const [showAllPhotos, setShowAllPhotos] =
+    useState(false);
 
-const [loading, setLoading] =
-useState(true);
+  useEffect(() => {
+    getCar();
+  }, []);
 
-useEffect(() => {
+  const getCar = async () => {
+    try {
+      const res =
+        await API.get(`/cars/${id}`);
 
-getCar();
+      setCar(res.data);
 
-}, []);
+    } catch (err) {
+      console.log(err);
+    } finally {
+      setLoading(false);
+    }
+  };
 
-const getCar = async () => {
+  if (loading) {
+    return (
+      <div className="p-10">
+        Loading...
+      </div>
+    );
+  }
 
-try {
+  if (!car) {
+    return (
+      <div className="p-10">
+        Car Not Found
+      </div>
+    );
+  }
 
-const res =
-await API.get(
-`/cars/${id}`
-);
+  return (
+    <div className="bg-gray-100 min-h-screen">
 
-setCar(
-res.data
-);
+      <div className="max-w-7xl mx-auto p-5">
 
-}
-catch(err){
+        <p className="mb-6 text-gray-600">
+          Fleet › {car.carName}
+        </p>
 
-console.log(err);
+        <div className="grid lg:grid-cols-3 gap-10">
 
-}
-finally{
+          {/* LEFT */}
 
-setLoading(false);
+          <div className="lg:col-span-2">
 
-}
+            {/* MAIN IMAGE */}
 
-};
+            <img
+              src={
+                car.image?.length
+                  ?
+                  `http://localhost:5000/uploads/${car.image[0]}`
+                  :
+                  "https://placehold.co/1200x700"
+              }
+              alt={car.carName}
+              className="
+              w-full
+              h-[520px]
+              object-cover
+              rounded-3xl
+              "
+            />
 
-if(loading){
+            {/* PHOTO GALLERY */}
 
-return(
-<div>
-Loading...
-</div>
-);
+            {
 
-}
+              car.image?.length > 1 && (
 
-if(!car){
+                <div
+                  className="
+                  grid
+                  grid-cols-4
+                  gap-4
+                  mt-6
+                  "
+                >
 
-return(
-<div>
-Car Not Found
-</div>
-);
+                  {
 
-}
+                    (
+                      showAllPhotos
+                        ?
+                        car.image.slice(1)
+                        :
+                        car.image.slice(1,5)
 
-return(
+                    )
 
-<div className="bg-gray-50">
+                    .map((img,index)=>(
 
-<div
-className="
-max-w-7xl
-mx-auto
-p-5
-md:p-10
-"
->
+                      <div
+                        key={index}
+                        className="relative"
+                      >
 
-<p className="text-sm mb-5">
+                        {
 
-Fleet ›
+                        !showAllPhotos
+                        &&
+                        index===3
+                        &&
+                        car.image.length>4
 
-<span className="ml-1">
+                        ?
 
-{car.name}
+                        <div
+                          onClick={()=>
+                          setShowAllPhotos(true)
+                          }
+                          className="
+                          cursor-pointer
+                          "
+                        >
 
-</span>
+                          <img
+                            src={`http://localhost:5000/uploads/${img}`}
+                            alt="car"
+                            className="
+                            w-full
+                            h-40
+                            rounded-2xl
+                            object-cover
+                            "
+                          />
 
-</p>
+                          <div
+                            className="
+                            absolute
+                            inset-0
+                            bg-black/40
+                            rounded-2xl
+                            flex
+                            items-center
+                            justify-center
+                            text-white
+                            text-3xl
+                            font-bold
+                            "
+                          >
 
-<div
-className="
-grid
-lg:grid-cols-3
-gap-8
-"
->
+                            +{car.image.length - 4}
 
-<div className="lg:col-span-2">
+                          </div>
 
-<CarGallery image={car.image}/>
+                        </div>
 
-<div
-className="
-grid
-grid-cols-2
-md:grid-cols-4
-gap-4
-mt-5
-"
->
+                        :
 
-<CarFeature
-icon="⛽"
-title="Fuel"
-value={
-car.fuel
-||
-"N/A"
-}
-/>
+                        <img
+                          src={`http://localhost:5000/uploads/${img}`}
+                          alt="car"
+                          className="
+                          w-full
+                          h-40
+                          rounded-2xl
+                          object-cover
+                          "
+                        />
 
-<CarFeature
-icon="💺"
-title="Seats"
-value={
-car.seats
-||
-"N/A"
-}
-/>
+                        }
 
-<CarFeature
-icon="⚙"
-title="Transmission"
-value={
-car.transmission
-||
-"N/A"
-}
-/>
+                      </div>
 
-<CarFeature
-icon="◉"
-title="Mileage"
-value={
-car.mileage
-||
-"N/A"
-}
-/>
+                    ))
 
-</div>
+                  }
 
-<div
-className="
-bg-white
-border
-rounded-xl
-p-8
-mt-6
-"
->
+                </div>
 
-<h2 className="text-2xl font-bold">
+              )
 
-{car.name}
+            }
 
-</h2>
+            {/* DESCRIPTION */}
 
-<p
-className="
-text-gray-600
-mt-4
-leading-7
-"
->
+            <div
+              className="
+              bg-white
+              rounded-3xl
+              p-8
+              mt-8
+              "
+            >
 
-{
-car.description
-||
-"No description available"
-}
+              <h2 className="text-3xl font-bold">
+                Description
+              </h2>
 
-</p>
+              <p
+                className="
+                mt-4
+                text-gray-600
+                leading-7
+                "
+              >
 
-</div>
+                {
+                  car.description
+                  ||
+                  "No description available"
+                }
 
-</div>
+              </p>
 
-<div>
+            </div>
 
-<BookingCard
-car={car}
-/>
+          </div>
 
-</div>
+          {/* RIGHT */}
 
-</div>
+          <div>
 
-<h2
-className="
-text-3xl
-font-bold
-mt-20
-"
->
+            <BookingSummary
+              car={car}
+            />
 
-Similar Vehicles
+          </div>
 
-</h2>
+        </div>
 
-<div
-className="
-grid
-md:grid-cols-3
-gap-6
-mt-8
-"
->
+        <div className="mt-16">
 
-<SimilarCar/>
+          <h2
+            className="
+            text-3xl
+            font-bold
+            mb-6
+            "
+          >
 
-</div>
+            Similar Vehicles
 
-</div>
+          </h2>
 
-</div>
+          <SimilarCar/>
 
-);
+        </div>
 
+      </div>
+
+    </div>
+  );
 };
 
 export default CarDetails;

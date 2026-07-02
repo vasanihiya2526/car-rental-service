@@ -1,167 +1,212 @@
-const FilterSidebar = () => {
-return (
-<div className="
-bg-white
-rounded-xl
-shadow-md
-p-5
-sm:p-6
-w-full
-">
-    <h3 className="
-    font-bold
-    text-sm
-    ">
-    SEARCH FLEET
-    </h3>
-    <input
-    placeholder="Model or Keyword"
-    className="
-    mt-4
-    w-full
-    border
-    rounded-lg
-    p-3
-    outline-none
-    focus:ring-2
-    focus:ring-green-400
-    "/>
-    <h3 className="
-    font-bold
-    mt-8
-    ">
-    BRAND
-    </h3>
-    <div className="
-    space-y-3
-    mt-4
-    text-gray-600
-    ">
-        <label className="flex gap-2 items-center">
-        <input
-        type="radio"/>
-        Mercedes-Benz
-        </label>
-        <label className="
-        flex
-        gap-2
-        items-center
-        text-green-600
-        ">
-        <input
-        type="radio"/>
-        Porsche
-        </label>
-        <label className="flex gap-2 items-center">
-        <input
-        type="radio"/>
-        Tesla
-        </label>
-        <label className="flex gap-2 items-center">
-        <input
-        type="radio"/>
-        BMW
-        </label>
-    </div>
-    <h3 className="font-bold mt-8">
-    PRICE RANGE
-    </h3>
-    <input
-    type="range"
-    className="
-    w-full
-    mt-5
-    accent-green-500
-    "/>
-    <div className="
-    flex
-    justify-between
-    text-sm
-    text-gray-500
-    ">
-        <span>
-        $30k
-        </span>
-        <span>
-        $500k+
-        </span>
-    </div>
-    <h3 className="font-bold mt-8">
-    FUEL TYPE
-    </h3>
-    <div className="
-    flex
-    flex-wrap
-    gap-3
-    mt-3
-    ">
-        <button
-        className="
+const FilterSidebar = ({cars}) => {
+  return (
+    <div
+      className="
+        bg-white
+        rounded-2xl
+        shadow-lg
+        p-6
+        w-full
         border
-        rounded-full
-        px-4
-        py-2
-        hover:bg-gray-100
-        ">
-        Electric
-        </button>
-        <button
+      "
+    >
+      {/* Heading */}
+      <h2 className="text-lg font-bold text-gray-800">
+        SEARCH FLEET
+      </h2>
+
+      {/* Brand */}
+      <div className="mt-8">
+        <h3 className="font-semibold text-gray-800">
+          BRAND
+        </h3>
+
+        <div className="space-y-3 mt-4">
+          <label className="flex items-center gap-3 cursor-pointer text-gray-700">
+            <input
+              type="radio"
+              name="brand"
+              className="accent-green-600"
+            />
+            Mercedes-Benz
+          </label>
+
+          <label className="flex items-center gap-3 cursor-pointer text-gray-700">
+            <input
+              type="radio"
+              name="brand"
+              defaultChecked
+              className="accent-green-600"
+            />
+            Porsche
+          </label>
+
+          <label className="flex items-center gap-3 cursor-pointer text-gray-700">
+            <input
+              type="radio"
+              name="brand"
+              className="accent-green-600"
+            />
+            Tesla
+          </label>
+
+          <label className="flex items-center gap-3 cursor-pointer text-gray-700">
+            <input
+              type="radio"
+              name="brand"
+              className="accent-green-600"
+            />
+            BMW
+          </label>
+        </div>
+      </div>
+
+      {/* Price Range */}
+      <div className="mt-8">
+        <h3 className="font-semibold text-gray-800">
+          PRICE RANGE
+        </h3>
+
+        <div className="space-y-3 mt-4">
+          <label className="flex items-center gap-3 cursor-pointer text-gray-700">
+            <input
+              type="radio"
+              name="price"
+              className="accent-green-600"
+            />
+            Below ₹2,000
+          </label>
+
+          <label className="flex items-center gap-3 cursor-pointer text-green-600 font-medium">
+            <input
+              type="radio"
+              name="price"
+              defaultChecked
+              className="accent-green-600"
+            />
+            ₹2,000 - ₹5,000
+          </label>
+
+          <label className="flex items-center gap-3 cursor-pointer text-gray-700">
+            <input
+              type="radio"
+              name="price"
+              className="accent-green-600"
+            />
+            ₹5,000 - ₹8,000
+          </label>
+
+          <label className="flex items-center gap-3 cursor-pointer text-gray-700">
+            <input
+              type="radio"
+              name="price"
+              className="accent-green-600"
+            />
+            ₹8,000 - ₹10,000
+          </label>
+
+          <label className="flex items-center gap-3 cursor-pointer text-gray-700">
+            <input
+              type="radio"
+              name="price"
+              className="accent-green-600"
+            />
+            Above ₹10,000
+          </label>
+        </div>
+      </div>
+
+      {/* Fuel Type */}
+      <div className="mt-8">
+        <h3 className="font-semibold text-gray-800">
+          FUEL TYPE
+        </h3>
+
+        <div className="flex flex-wrap gap-3 mt-4">
+          <button
+            className="
+              border
+              rounded-full
+              px-4
+              py-2
+              hover:bg-gray-100
+            "
+          >
+            Electric
+          </button>
+
+          <button
+            className="
+              border
+              border-green-500
+              text-green-600
+              rounded-full
+              px-4
+              py-2
+            "
+          >
+            Hybrid
+          </button>
+        </div>
+      </div>
+
+      {/* Seats */}
+      <div className="mt-8">
+        <h3 className="font-semibold text-gray-800">
+          SEATS
+        </h3>
+
+        <div className="flex flex-wrap gap-3 mt-4">
+          <button className="border rounded-lg px-4 py-2 hover:bg-gray-100">
+            2
+          </button>
+
+          <button className="bg-green-500 text-white rounded-lg px-4 py-2">
+            4
+          </button>
+
+          <button className="border rounded-lg px-4 py-2 hover:bg-gray-100">
+            5
+          </button>
+
+          <button className="border rounded-lg px-4 py-2 hover:bg-gray-100">
+            7+
+          </button>
+        </div>
+      </div>
+
+      {/* Apply Button */}
+      <button
         className="
-        border
-        rounded-full
-        px-4
-        py-2
-        text-green-600
-        border-green-500
-        ">
-        Hybrid
-        </button>
+          w-full
+          bg-green-600
+          hover:bg-green-700
+          text-white
+          font-semibold
+          py-3
+          rounded-xl
+          mt-10
+          transition
+        "
+      >
+        APPLY FILTERS
+      </button>
+
+      {/* Clear */}
+      <button
+        className="
+          w-full
+          mt-4
+          text-gray-500
+          hover:text-green-600
+          text-sm
+          underline
+        "
+      >
+        Clear All
+      </button>
     </div>
-    <h3 className="font-bold mt-8">
-    SEATS
-    </h3>
-    <div className="
-    flex
-    flex-wrap
-    gap-2
-    mt-3
-    ">
-        <button className="border px-4 py-2 rounded">
-        2
-        </button>
-        <button className="bg-green-500 text-white px-4 py-2 rounded">
-        4
-        </button>
-        <button className="border px-4 py-2 rounded">
-        5
-        </button>
-        <button className="border px-4 py-2 rounded">
-        7+
-        </button>
-    </div>
-    <button
-    className="
-    bg-green-500
-    text-white
-    w-full
-    mt-8
-    py-3
-    rounded-lg
-    hover:bg-green-600
-    ">
-    APPLY FILTERS
-    </button>
-    <p
-    className="
-    text-center
-    mt-6
-    underline
-    text-sm
-    cursor-pointer
-    text-gray-500
-    ">
-    Clear All
-    </p>
-</div>
-)}
+  );
+};
+
 export default FilterSidebar;

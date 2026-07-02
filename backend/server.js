@@ -2,6 +2,7 @@ require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 const connectDB = require("./config/db");
+const path=require("path");
 const authRoutes =
 require("./routes/authRoutes");
 const carsRoutes =
@@ -17,7 +18,7 @@ app.use(express.json());
 // Routes AFTER middleware
 app.use(
 "/uploads",
-express.static("uploads")
+express.static(path.join(__dirname,"uploads"))
 );
 app.use(
 "/api/auth",

@@ -1,81 +1,85 @@
-import mainCar from "../assets/images/audi.jpg";
-import img1 from "../assets/images/audi1.jpg";
-import img2 from "../assets/images/audi2.jpg";
-import img3 from "../assets/images/audi3.jpg";
+const CarGallery = ({ image = [], description }) => {
+  const mainImage =
+    image?.length > 0
+      ? `http://localhost:5000/uploads/${image[0]}`
+      : "https://placehold.co/1200x700";
 
-const CarGallery =()=>{
-return(
-<div>
-    <div className="relative">
-        <img
-        src={mainCar}
+  return (
+    <div>
+
+      {/* Main Image */}
+      <img
+        src={mainImage}
+        alt="Car"
         className="
         w-full
-        h-[300px]
-        md:h-[450px]
+        h-[500px]
+        rounded-3xl
         object-cover
-        rounded-2xl
-        "/>
-        <div className="
-        absolute
-        bottom-5
-        left-5
-        text-white
-        ">
-            <p className="
-            bg-green-500
-            inline
-            px-3
-            py-1
-            rounded-full
-            text-xs
-            ">
-            Premium Selection
-            </p>
-            <h1 className="
-            text-3xl
-            md:text-5xl
-            font-bold
-            mt-3
-            ">
-            Porsche 911 Turbo S
-            </h1>
-        </div>
-    </div>
+        "
+      />
 
-    <div className="
-    grid
-    grid-cols-4
-    gap-3
-    mt-4
-    ">
-        {
-        [img1,img2,img3].map((img,index)=>(
-        <img
-        key={index}
-        src={img}
+      {/* Other Photos */}
+      {
+        image?.length > 1 && (
+          <div
+            className="
+            grid
+            grid-cols-2
+            md:grid-cols-4
+            gap-4
+            mt-5
+            "
+          >
+            {
+              image.slice(1).map((img, index) => (
+                <img
+                  key={index}
+                  src={`http://localhost:5000/uploads/${img}`}
+                  alt={`car-${index}`}
+                  className="
+                  h-40
+                  w-full
+                  rounded-xl
+                  object-cover
+                  "
+                />
+              ))
+            }
+          </div>
+        )
+      }
+
+      {/* Description */}
+      <div
         className="
-        h-24
-        md:h-32
-        w-full
-        object-cover
+        bg-white
+        border
         rounded-xl
-        "/>
-        ))
-        }
-        <div className="
-        h-24
-        md:h-32
-        bg-black
-        rounded-xl
-        flex
-        items-center
-        justify-center
-        text-white
-        ">
-            +12 Photos
-        </div>
+        p-8
+        mt-8
+        "
+      >
+        <h2 className="text-2xl font-bold">
+          Description
+        </h2>
+
+        <p
+          className="
+          text-gray-600
+          mt-4
+          leading-7
+          "
+        >
+          {
+            description ||
+            "No description available"
+          }
+        </p>
+      </div>
+
     </div>
-</div>
-)}
+  );
+};
+
 export default CarGallery;

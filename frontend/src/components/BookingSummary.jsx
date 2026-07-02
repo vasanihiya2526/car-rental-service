@@ -1,4 +1,4 @@
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const BookingSummary = ({ car }) => {
 
@@ -22,47 +22,25 @@ className="
 bg-white
 border
 rounded-2xl
-overflow-hidden
 sticky
 top-5
+p-6
 "
 >
 
-<img
-src={
-car.image?.length
-?
-`http://localhost:5000/uploads/${car.image[0]}`
-:
-"https://placehold.co/600x400"
-}
-alt={car.carName}
-className="
-w-full
-h-56
-object-cover
-"
-/>
-
-<div className="p-6">
-
 <h4 className="text-sm text-blue-900">
 
-{car.brand || "PREMIUM"}
+{car.brand}
 
 </h4>
 
 <h2 className="text-3xl font-bold">
 
-{
-car.carName
-||
-car.name
-}
+{car.carName}
 
 </h2>
 
-<div className="flex justify-between mt-4">
+<div className="flex justify-between mt-6">
 
 <span>
 
@@ -72,14 +50,7 @@ Daily Rate
 
 <span className="text-blue-900 font-bold">
 
-₹
-{
-car.pricePerDay
-||
-car.price
-||
-0
-}
+₹ {car.pricePerDay}
 
 </span>
 
@@ -87,51 +58,61 @@ car.price
 
 <hr className="my-5"/>
 
-<div className="space-y-3">
+<div className="space-y-4">
 
 <div className="flex justify-between">
 
-<span>
+<span>Model</span>
 
-Rental Duration
-
-</span>
-
-<b>
-
-1 Day
-
-</b>
+<b>{car.model}</b>
 
 </div>
 
 <div className="flex justify-between">
 
-<span>
+<span>Seats</span>
 
-Insurance
-
-</span>
-
-<b>
-
-Included
-
-</b>
+<b>{car.seats}</b>
 
 </div>
 
 <div className="flex justify-between">
 
-<span>
+<span>Fuel</span>
 
-Service Fee
+<b>{car.fuelType}</b>
 
-</span>
+</div>
 
-<b>
+<div className="flex justify-between">
 
-₹ 100
+<span>Transmission</span>
+
+<b>{car.transmission}</b>
+
+</div>
+
+<div className="flex justify-between">
+
+<span>Availability</span>
+
+<b
+className={
+car.available
+?
+"text-green-600"
+:
+"text-red-600"
+}
+>
+
+{
+car.available
+?
+"Available"
+:
+"Not Available"
+}
 
 </b>
 
@@ -143,22 +124,11 @@ Service Fee
 
 <div className="flex justify-between text-xl">
 
-<b>
-
-Total
-
-</b>
+<b>Total</b>
 
 <b className="text-blue-900">
 
-₹
-{
-car.pricePerDay
-||
-car.price
-||
-0
-}
+₹ {car.pricePerDay}
 
 </b>
 
@@ -180,8 +150,6 @@ hover:bg-blue-800
 Confirm Reservation →
 
 </button>
-
-</div>
 
 </div>
 
